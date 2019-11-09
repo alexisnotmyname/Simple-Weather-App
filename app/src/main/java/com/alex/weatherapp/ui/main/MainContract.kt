@@ -8,7 +8,7 @@ class MainContract {
 
     interface View {
         fun showProgressDialog(show: Boolean)
-        fun showErrorMessage(error: String)
+        fun showErrorMessage(error: String?)
         fun displayWeatherData(response: WeatherResponse)
     }
 

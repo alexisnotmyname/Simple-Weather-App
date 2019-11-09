@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     override fun onPause() {
         super.onPause()
-        Log.d(TAG, "onPause")
         presenter.stopLocationUpdates()
     }
 
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
     }
 
-    override fun showErrorMessage(error: String) {
+    override fun showErrorMessage(error: String?) {
 
     }
 
@@ -95,8 +94,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         txt_cloud.text = response.weather[0].description
 
         val iconUrl = "$WEATHER_ICON_URL/${response.weather[0].icon}@2x.png"
-
-        Log.d(TAG, iconUrl)
         loadWeatherIcon(iconUrl)
     }
 

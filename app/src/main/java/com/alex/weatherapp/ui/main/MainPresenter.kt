@@ -31,20 +31,17 @@ class MainPresenter @Inject constructor(private val apiServiceInterface: ApiServ
 
     override fun getLocation() {
         googleLocationHelper.connect(this)
-        Log.d(TAG, "Get Location")
     }
 
     override fun stopLocationUpdates() {
         googleLocationHelper.disconnect()
-        Log.d(TAG, "Stop Location")
     }
 
     override fun onLocationChanged(location: Location) {
-        Log.d(TAG, "Location has changed $location")
 
         view.showProgressDialog(true)
 
-        var subscribe = apiServiceInterface.getCurrentWeather(location.latitude, location.longitude, APPID_KEY, METRIC).subscribeOn(Schedulers.io())
+        val subscribe = apiServiceInterface.getCurrentWeather(location.latitude, location.longitude, APPID_KEY, METRIC).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe( {
                 view.showProgressDialog(false)

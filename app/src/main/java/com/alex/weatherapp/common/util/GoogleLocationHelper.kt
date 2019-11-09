@@ -18,18 +18,16 @@ class GoogleLocationHelper(context: Context): GoogleApiClient.ConnectionCallback
     private var fusedLocationClient: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(context)
 
     fun connect(_locationListener: LocationListener) {
-        Log.d(TAG, "connect")
         locationListener = _locationListener
         googleApiClient.connect()
     }
 
     fun disconnect() {
-        Log.d(TAG, "disconnect")
         fusedLocationClient.removeLocationUpdates(object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
                 for (location in locationResult.locations){
-                    locationListener?.onLocationChanged(location)
+                    locationListener.onLocationChanged(location)
                 }
             }
         })
@@ -38,10 +36,8 @@ class GoogleLocationHelper(context: Context): GoogleApiClient.ConnectionCallback
 
     override fun onConnected(bundle: Bundle?) {
         fusedLocationClient.lastLocation.addOnSuccessListener {location ->
-            Log.d(TAG, "getLastKnownLocation onSuccess $location")
             if(location != null) {
-                locationListener?.onLocationChanged(location)
-                Log.d(TAG, "location is $location")
+                locationListener.onLocationChanged(location)
             }else {
                 requestLocationUpdates()
             }
@@ -61,7 +57,7 @@ class GoogleLocationHelper(context: Context): GoogleApiClient.ConnectionCallback
                 super.onLocationResult(locationResult)
 
                 for (location in locationResult.locations){
-                    locationListener?.onLocationChanged(location)
+                    locationListener.onLocationChanged(location)
                 }
             }
         }, Looper.getMainLooper())
