@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="permission_denied_explanation">Permission was denied, but is needed for core functionality.</string>
+</resources>
